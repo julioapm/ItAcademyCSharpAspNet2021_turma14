@@ -1,0 +1,1 @@
+public record class Pessoa(string Nome, int Idade);
