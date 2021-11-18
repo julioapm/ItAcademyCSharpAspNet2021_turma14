@@ -48,3 +48,15 @@ foreach (var p in linq5)
 var linq5v2 = pessoas
               .OrderByDescending(p => p.DataNascimento)
               .ThenBy(p => p.Nome);
+
+var linq6 = from p in pessoas
+            group p by p.Casada into grupo
+            select new { Casados = grupo.Key, Pessoas = grupo };
+foreach (var agrupamento in linq6)
+{
+    Console.WriteLine($"Casados={agrupamento.Casados}");
+    foreach (var p in agrupamento.Pessoas)
+    {
+        Console.WriteLine($"\t{p}");
+    }
+}
