@@ -19,7 +19,9 @@ public class TodoItemsController : ControllerBase
     [HttpGet] //GET api/TodoItems
     public async Task<IEnumerable<TodoItemDTO>> GetTodoItems()
     {
-        return await _context.TodoItems.Select(t => new TodoItemDTO(t)).ToListAsync();
+        return await _context.TodoItems
+            .AsNoTracking()
+            .Select(t => new TodoItemDTO(t)).ToListAsync();
     }
 
     [HttpGet("notcomplete")] //GET api/TodoItems/notcomplete
