@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Cors;
 using DemoWebServiceEntityFramework2.Data;
 using DemoWebServiceEntityFramework2.Models;
 using DemoWebServiceEntityFramework2.Dtos;
@@ -8,6 +9,7 @@ namespace DemoWebServiceEntityFramework2.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[EnableCors("AllowAll")]
 public class CatalogoController : ControllerBase
 {
     private readonly ILogger<CatalogoController> _logger;
