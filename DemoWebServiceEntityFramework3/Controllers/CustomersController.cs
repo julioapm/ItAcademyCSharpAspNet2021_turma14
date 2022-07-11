@@ -27,7 +27,7 @@ namespace DemoWebServiceEntityFramework3.Controllers
             return await _context.Customers.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Customers/ALFKI
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(string id)
         {
@@ -40,6 +40,39 @@ namespace DemoWebServiceEntityFramework3.Controllers
 
             return customer;
         }
+
+        // GET: api/Customers/Orders/ALFKI
+        [HttpGet("Orders/{id}")]
+        public async Task<ActionResult<Customer>> GetCustomerOrders(string id)
+        {
+            var customer = await _context.Customers
+                .Include(c => c.Orders)
+                .FirstOrDefaultAsync(c => c.CustomerId == id);  
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            //Vai causar exceção de circular reference
+            return customer;
+        }
+
+        // GET: api/Customers/Suppliers
+        [HttpGet("Suppliers")]
+        public async Task<IEnumerable<CustomerAndSuppliersByCity>> GetCustomerAndSuppliersByCities()
+        {
+            //Consultar uma view
+            return await _context.CustomerAndSuppliersByCities.ToListAsync();
+        }
+
+        // GET: api/Customers/OrdersDetails/10248
+        [HttpGet("OrdersDetails/{id}")]
+        public async Task<IEnumerable<CustOrdersDetailResult>> GetCustomerOrdersDetails(int id)
+        {
+            //Consultar uma stored procedure
+            return await _context.???
+        }
+
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
